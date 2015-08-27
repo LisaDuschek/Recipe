@@ -72,26 +72,42 @@
   </tbody>
 </table>
 
-<h3 class="header">Search for recipes:</h3>
+<h3 class="header">Search for recipes by:</h3>
 
+<table class="table table-striped">
+  <thead>
+    </thead>
+    <tbody>
 
-<select id="tags" name="tags">
+      <td>
+<select onChange="window.location.href=this.value">
+  <option value="/">TAG</option>
   <% @tags.each do |tag| %>
-  <option value="<%= tag.category %>"><%= tag.category %></option><% end %>
+  <option value="/tags/<%= tag.id() %>"><%= tag.category %></option><% end %>
 </select>
 
+</td>
 
 
-<select id="ingredients" name="ingredients">
+<td>
+<select onChange="window.location.href=this.value">
+  <option value ="/">INGREDIENT</option>
   <% @ingredients.each do |ingredient| %>
-<option value="<%= ingredient.name %>"><%= ingredient.name %></option><% end %>
+<option value="/ingredients/<%= ingredient.id() %>"><%= ingredient.name %></option><% end %>
 </select>
 
+</td>
 
-<select id="rating" name="rating">
-  <option value="1">*</option>
-  <option value="2">**</option>
-  <option value="3">***</option>
-  <option value="4">*****</option>
-  <option value="5">******</option>
+<td>
+<select onChange="window.location.href=this.value">
+  <option value="/">RATING</option>
+  <option value="/ratings/1">*</option>
+  <option value="/ratings/2">**</option>
+  <option value="/ratings/3">***</option>
+  <option value="/ratings/4">*****</option>
+  <option value="/ratings/5">******</option>
 </select>
+
+</td>
+</tbody>
+</table>

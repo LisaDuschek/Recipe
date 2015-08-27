@@ -3,6 +3,10 @@ Bundler.require(:default)
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+DB = PG.connect({:dbname => "recipes_development"})
+
+################ INDEX ################
+
 get('/') do
   @recipes = Recipe.all()
   @tags = Tag.all()
@@ -33,6 +37,29 @@ delete('/recipes/:id') do
   redirect("/")
 end
 
+
+################ RESULTS ################
+
+get('/ratings/:id') do
+  @rating = params.fetch("id").to_i()
+  @recipes = Recipe.all()
+  erb(:ratings_results)
+end
+
+get('/ingredients/:id') do
+  @recipes = Recipe.all()
+  @ingredient = Ingredient.find(params.fetch("id").to_i())
+  erb(:ingredients_results)
+end
+
+get('/tags/:id') do
+  @recipes = Recipe.all()
+  @tag = Tag.find(params.fetch("id").to_i())
+  erb(:tags_results)
+end
+
+################ NEW RECIPE FORM ################
+
 get('/recipes/new') do
   erb(:recipe_form)
 end
@@ -42,6 +69,8 @@ post('/recipes/new') do
   Recipe.create({:name => name})
   redirect("/")
 end
+
+################ RECIPE INFO PAGE ################
 
 get('/recipes/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())

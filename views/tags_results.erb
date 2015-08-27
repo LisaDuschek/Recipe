@@ -1,0 +1,16 @@
+<h1><%=@tag.category() %></h1>
+
+<% if @tag.recipes.any? %>
+  <h3>Here are the recipes currently that use this tag:</h3>
+  <ul>
+    <% @tag.recipes.each() do |recipe_tag| %>
+      <li> <a href="/recipes/<%= recipe_tag.id() %>"><%= recipe_tag.name() %></a> </li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+    <p><strong>There are currently no recipes that use this tag.</strong></p>
+    <br>
+
+<% end %>
