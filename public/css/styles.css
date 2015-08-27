@@ -1,0 +1,20 @@
+.container {
+  margin: 30px;
+  background-color: white;
+  float: center;
+}
+
+body {
+  background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('/img/pizza.jpg') repeat center center;
+}
+
+h1.header {
+  text-align: center;
+  font-size: 70px;
+  color: #B00000;
+  background-color: #D8D8D8;
+}
+
+h3.header {
+  text-align: center;
+}

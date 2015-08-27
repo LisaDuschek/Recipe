@@ -1,0 +1,153 @@
+<h1 class="header"><%=@recipe.name()%></h1>
+
+<h3>Add new ingredient</h3>
+<form action='/ingredients/new' method='post'>
+  <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+  <label for="name">Name:</label>
+  <input id="name" name="name" type="text">
+
+  <label for="amount">Amount:</label>
+  <input id="amount" name="amount" type="text">
+
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+<h3>Ingredients</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @recipe.ingredients.each() do |ingredient| %>
+    <tr>
+        <td>
+        <form id="update_ingredient" action="/ingredients/<%= ingredient.id %>/rename" method="post">
+          <input type="hidden" name="_method" value="patch">
+          <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+
+
+            <input type="text" name="update_name" id="update_name" value="<%= ingredient.name() %>">
+            <button type="submit" class="btn btn-info">Update</button>
+          </form>
+        </td>
+          <td>
+          <form id="update_ingredient" action="/ingredients/<%= ingredient.id %>/new_amount" method="post">
+            <input type="hidden" name="_method" value="patch">
+            <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+
+
+              <input type="text" name="update_amount" id="update_amount" value="<%= ingredient.amount() %>">
+              <button type="submit" class="btn btn-info">Update</button>
+            </form>
+          </td>
+
+      <td><form action = "/ingredients/<%= ingredient.id %>" method="post">
+          <div class="form-group">
+            <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-lg btn-danger">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form></td>
+
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h3>Add new instruction</h3>
+<form action='/instructions/new' method='post'>
+
+  <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+  <label for="description">Description:</label>
+  <input id="description" name="description" type="text">
+
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+<h3>Instructions:</h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @recipe.instructions.each() do |instruction| %>
+    <tr>
+        <td>
+        <form id="update_instruction" action="/instructions/<%= instruction.id %>/rename" method="post">
+          <input type="hidden" name="_method" value="patch">
+          <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+
+
+            <input type="text" name="update_description" id="update_description" value="<%= instruction.description() %>">
+            <button type="submit" class="btn btn-info">Update</button>
+          </form>
+        </td>
+
+      <td><form action = "/instructions/<%= instruction.id %>" method="post">
+          <div class="form-group">
+            <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-lg btn-danger">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form></td>
+
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Add tags</h3>
+
+
+<form action='/tags/new' method='post'>
+
+  <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+  <input id="category" name="category" type="text">
+
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+<p>Or choose an existing tag:</p>
+<form action='/tags/new' method='post'>
+  <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+  <select id="category" name="category">
+     <option value=""></option>
+     <% @tags.each() do |tag| %>
+       <option value="<%= tag.category() %>"><%= tag.category() %></option>
+     <% end %>
+   </select>
+
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+<% if @recipe.tags.any?() %>
+	<h3>Tags:</h3>
+	<ul style="list-style-type:none">
+		<% @recipe.tags.each() do |tag| %>
+    <li><form action = "/tags/<%= tag.id %>" method="post">
+          <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="btn-danger">x</button> <%= tag.category() %>
+      </form>
+    </li>
+		<% end %>
+	</ul>
+
+<% else %>
+	<h3>There are no tags yet!</h3>
+	<% end %>
+
+<p><a href="/">Back to home</a></p>

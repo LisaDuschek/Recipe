@@ -1,0 +1,97 @@
+<h1 class="header">RECIPE BOX</h1>
+<h3 class="header"><a href="/recipes/new">Add a new recipe</a></h3>
+
+<h3 class="header">My Recipes</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Rating</th>
+      <th>Update Rating</th>
+      <th></th>
+  </thead>
+  <tbody>
+    <% @recipes.each() do |recipe| %>
+    <tr>
+      <td><a class="btn btn-success" href="/recipes/<%= recipe.id() %>" role="button">Go</a>
+      </td>
+      <td>
+        <form id="update_recipe" action="/recipes/<%= recipe.id %>" method="post">
+          <input type="hidden" name="_method" value="patch">
+          <input id="recipe_id" name="recipe_id" type="hidden" value="<%= recipe.id() %>">
+
+            <input type="text" name="update_name" id="update_name" value="<%= recipe.name() %>">
+            <button type="submit" class="btn btn-warning">Update</button>
+          </form>
+        </td>
+      <td>
+        <% if recipe.rating() == 1 %>
+          &star;
+        <% elsif recipe.rating() == 2 %>
+        &star; &star;
+        <% elsif recipe.rating() == 3 %>
+        &star; &star; &star;
+        <% elsif recipe.rating() == 4 %>
+        &star; &star; &star; &star;
+        <% elsif recipe.rating() == 5 %>
+        &star; &star; &star; &star; &star;
+      <% end %>
+
+      </td>
+        <td>
+
+          <form id="update_recipe" action="/recipes/<%= recipe.id %>/rating" method="post">
+            <input type="hidden" name="_method" value="post">
+            <input id="recipe_id" name="recipe_id" type="hidden" value="<%= recipe.id() %>">
+
+              <select id="rating" name="rating">
+                <option value="1">*</option>
+                <option value="2">**</option>
+                <option value="3">***</option>
+                <option value="4">*****</option>
+                <option value="5">******</option>
+              </select>
+
+              <button type="submit" class="btn btn-info">Submit</button>
+            </form>
+
+        </td>
+      <td><form action = "/recipes/<%= recipe.id %>" method="post">
+          <div class="form-group">
+            <input id="recipe_id" name="recipe_id" type="hidden" value="<%= recipe.id() %>">
+            <input type="hidden" name="_method" value="delete">
+
+            <button type="submit" class="btn btn-danger">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="header">Search for recipes:</h3>
+
+
+<select id="tags" name="tags">
+  <% @tags.each do |tag| %>
+  <option value="<%= tag.category %>"><%= tag.category %></option><% end %>
+</select>
+
+
+
+<select id="ingredients" name="ingredients">
+  <% @ingredients.each do |ingredient| %>
+<option value="<%= ingredient.name %>"><%= ingredient.name %></option><% end %>
+</select>
+
+
+<select id="rating" name="rating">
+  <option value="1">*</option>
+  <option value="2">**</option>
+  <option value="3">***</option>
+  <option value="4">*****</option>
+  <option value="5">******</option>
+</select>
