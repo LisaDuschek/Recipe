@@ -2,6 +2,7 @@
   margin: 30px;
   background-color: white;
   float: center;
+  border-radius: 25px;
 }
 
 body {
@@ -9,12 +10,37 @@ body {
 }
 
 h1.header {
+  font-family: 'Sigmar One', cursive;
   text-align: center;
   font-size: 70px;
   color: #B00000;
   background-color: #D8D8D8;
+  border-radius: 25px;
+  .rotate:hover
+
 }
 
-h3.header {
+.rotate:hover {
+        -webkit-transform: rotateZ(-30deg);
+        -ms-transform: rotateZ(-30deg);
+        transform: rotateZ(-30deg);
+}
+
+h2.header {
   text-align: center;
+}
+
+h2.add {
+  font-family: 'Chewy', cursive;
+}
+
+h1.title {
+  text-align: center;
+  font-family: 'Chewy', cursive;
+}
+
+.add_group {
+  background-color: #F9F9F9;
+  padding: 10px;
+  border-radius: 15px;
 }

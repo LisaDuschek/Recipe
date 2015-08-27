@@ -1,6 +1,7 @@
 <h1 class="header"><%=@recipe.name()%></h1>
 
-<h3>Add new ingredient</h3>
+<div class="add_group">
+<h2 class="add">Ingredients:</h2>
 <form action='/ingredients/new' method='post'>
   <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
   <label for="name">Name:</label>
@@ -11,9 +12,7 @@
 
   <button type="submit" class="btn btn-success">Add</button>
 </form>
-
-<h3>Ingredients</h3>
-
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -62,18 +61,17 @@
 
 <hr>
 
-<h3>Add new instruction</h3>
+<div class="add_group">
+<h2 class="add">Instructions:</h2>
 <form action='/instructions/new' method='post'>
 
   <input id="recipe_id" name="recipe_id" type="hidden" value="<%= @recipe.id() %>">
-  <label for="description">Description:</label>
+  <label for="description">Add a step:</label>
   <input id="description" name="description" type="text">
 
   <button type="submit" class="btn btn-success">Add</button>
 </form>
-
-<h3>Instructions:</h3>
-
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -109,8 +107,9 @@
     </tr>
   </tbody>
 </table>
-
-<h3>Add tags</h3>
+<hr>
+<div class="add_group">
+<h2 class="add">Add tags</h2>
 
 
 <form action='/tags/new' method='post'>
@@ -132,9 +131,10 @@
 
   <button type="submit" class="btn btn-success">Add</button>
 </form>
+</div>
 
 <% if @recipe.tags.any?() %>
-	<h3>Tags:</h3>
+	<h2>Tags:</h2>
 	<ul style="list-style-type:none">
 		<% @recipe.tags.each() do |tag| %>
     <li><form action = "/tags/<%= tag.id %>" method="post">
@@ -147,7 +147,10 @@
 	</ul>
 
 <% else %>
-	<h3>There are no tags yet!</h3>
+	<h4>There are no tags yet!</h4>
 	<% end %>
-
-<p><a href="/">Back to home</a></p>
+<hr>
+<p>
+<a href="/" class="btn btn-info btn-lg">
+<span class="glyphicon glyphicon-home"></span> Home</a>
+</p>
